@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const commentUserDto = z.object({
-	_id: z.string().min(1),
+	id: z.string().min(1),
 	username: z.string().min(1),
 	avatarUrl: z.string().optional(),
 });

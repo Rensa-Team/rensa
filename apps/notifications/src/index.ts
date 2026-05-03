@@ -1,10 +1,7 @@
 import cors from "@elysiajs/cors";
 import Elysia from "elysia";
 import { env } from "./config/env";
-import { connectDatabase } from "./database";
 import { apiController } from "./modules";
-
-await connectDatabase();
 
 export const app = new Elysia()
 	.use(

@@ -1,8 +1,8 @@
+import { loginLimiter } from "@rensa/rate-limit";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { rollController } from "@/backend/services/rolls/controller";
 import { userController } from "@/backend/services/users/controller";
-import { loginLimiter } from "@/lib/rateLimiter";
 
 /*
   POST /api/auth/login

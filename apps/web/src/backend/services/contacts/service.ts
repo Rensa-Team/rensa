@@ -3,13 +3,13 @@ import type {
 	CreateContactDto,
 	ListContactsQueryDto,
 } from "@rensa/db/schema";
+import { contactFormLimiter } from "@rensa/rate-limit";
 import {
 	TooManyRequestsError,
 	UnauthorizedError,
 } from "@/backend/common/backend.error";
 import ContactAdminEmail from "@/frontend/components/emailTemplates/ContactAdminEmail";
 import ContactConfirmationEmail from "@/frontend/components/emailTemplates/ContactConfirmationEmail";
-import { contactFormLimiter } from "@/lib/rateLimiter";
 import getResend from "@/lib/resend";
 import { sanitizeInput } from "@/lib/validation";
 

@@ -31,8 +31,8 @@ export interface CommentResponseDto {
 	userId:
 		| string
 		| {
-				_id: string;
 				avatarUrl?: string;
+				id: string;
 				username: string;
 		  };
 }

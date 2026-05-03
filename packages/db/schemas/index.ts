@@ -23,6 +23,7 @@ export type * from "./bookmarks";
 export type * from "./bug-reports";
 export type * from "./comments";
 export type * from "./contacts";
+export type * from "./notifications";
 export type * from "./photos";
 export type * from "./rolls";
 export type * from "./users";

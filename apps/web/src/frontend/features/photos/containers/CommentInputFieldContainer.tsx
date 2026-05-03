@@ -27,7 +27,7 @@ const CommentInputFieldContainer: React.FC<CommentInputFieldContainerProps> = ({
 			comment_id: tempId,
 			text: comment,
 			userId: {
-				_id: user?.id || "unknown",
+				id: user?.id || "unknown",
 				username: user?.name || "Anonymous",
 				avatarUrl: user?.image || "/profile.jpg",
 			},

@@ -1,9 +1,13 @@
 import type {
 	CreateNotificationDto,
 	ListNotificationsQueryDto,
+	NewNotification,
+	Notification,
 	NotificationRepositoryInterface,
 	NotificationResponseDto,
 } from "../schemas/notifications";
+import { notifications } from "../schemas/notifications";
+import db, { count, desc, eq } from "../src/db";
 
 interface NotificationsApiResponse {
 	data?: {
@@ -79,5 +83,67 @@ export class NotificationRepository implements NotificationRepositoryInterface {
 			return new Error(responseMessage ?? errorMessage ?? fallbackMessage);
 		}
 		return new Error(fallbackMessage);
+	}
+}
+
+type CreateNotificationInput = Pick<
+	NewNotification,
+	"actorId" | "photoId" | "recipientId" | "type"
+>;
+
+export class NotificationDbRepository {
+	async findByRecipient(params: {
+		limit: number;
+		offset: number;
+		recipientId: string;
+	}): Promise<Notification[]> {
+		return await db
+			.select()
+			.from(notifications)
+			.where(eq(notifications.recipientId, params.recipientId))
+			.orderBy(desc(notifications.createdAt))
+			.limit(params.limit)
+			.offset(params.offset);
+	}
+
+	async countByRecipient(recipientId: string): Promise<number> {
+		const [result] = await db
+			.select({ total: count() })
+			.from(notifications)
+			.where(eq(notifications.recipientId, recipientId));
+
+		return result?.total ?? 0;
+	}
+
+	async create(input: CreateNotificationInput): Promise<Notification> {
+		const [notification] = await db
+			.insert(notifications)
+			.values(input)
+			.returning();
+
+		if (!notification) {
+			throw new Error("Failed to create notification");
+		}
+
+		return notification;
+	}
+
+	async deleteByRecipient(recipientId: string): Promise<number> {
+		const deleted = await db
+			.delete(notifications)
+			.where(eq(notifications.recipientId, recipientId))
+			.returning({ id: notifications.id });
+
+		return deleted.length;
+	}
+
+	async markAsRead(id: string): Promise<Notification | null> {
+		const [notification] = await db
+			.update(notifications)
+			.set({ read: true, updatedAt: new Date() })
+			.where(eq(notifications.id, id))
+			.returning();
+
+		return notification ?? null;
 	}
 }

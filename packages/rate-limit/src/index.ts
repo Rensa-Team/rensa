@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import getRedis from "@/lib/redis";
+import { getRedis, type RedisClient } from "@rensa/cache";
 
 export interface RateLimitResult {
   limit: number;
@@ -8,13 +8,14 @@ export interface RateLimitResult {
   success: boolean;
 }
 
-interface SlidingWindowConfig {
+export interface SlidingWindowConfig {
   limit: number;
   prefix: string;
+  redis?: RedisClient;
   windowMs: number;
 }
 
-interface RateLimiter {
+export interface RateLimiter {
   limit: (identifier: string) => Promise<RateLimitResult>;
 }
 
@@ -38,12 +39,12 @@ function normalizeIdentifier(identifier: string) {
   return identifier.trim() || "unknown";
 }
 
-function createSlidingWindowRateLimiter(
+export function createSlidingWindowRateLimiter(
   config: SlidingWindowConfig,
 ): RateLimiter {
   return {
     async limit(identifier: string) {
-      const redis = getRedis();
+      const redis = config.redis ?? getRedis();
       const now = Date.now();
       const member = `${now}:${randomUUID()}`;
       const key = `${config.prefix}:${normalizeIdentifier(identifier)}`;
@@ -71,7 +72,6 @@ function createSlidingWindowRateLimiter(
   };
 }
 
-// Create a rate limiter that allows 5 requests per 10 minutes
 export const loginLimiter = createSlidingWindowRateLimiter({
   limit: 5,
   prefix: "login_limit",

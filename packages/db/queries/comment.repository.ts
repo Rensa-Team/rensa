@@ -71,7 +71,7 @@ export class CommentRepository implements CommentRepositoryInterface {
 			const user =
 				row.userId && row.username
 					? {
-							_id: row.userId,
+							id: row.userId,
 							username: row.username,
 							avatarUrl: row.avatar ?? undefined,
 						}

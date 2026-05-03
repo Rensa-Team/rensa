@@ -1,6 +1,6 @@
+import { verificationEmailLimiter } from "@rensa/rate-limit";
 import { type NextRequest, NextResponse } from "next/server";
 import { sendVerificationEmail } from "@/frontend/services/email.service";
-import { verificationEmailLimiter } from "@/lib/rateLimiter";
 
 export async function POST(req: NextRequest) {
 	const { email } = await req.json();
