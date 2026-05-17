@@ -1,9 +1,15 @@
 # API Contracts
 
-Updated: 2026-04-13
+Updated: 2026-05-17
 
 Canonical machine contract: `GET /api/openapi`  
 Interactive docs: `/swagger` (development open, production admin-only)
+
+## Naming Convention
+
+API contracts use `camelCase` for request bodies, query parameters, path parameter names, and response fields. Examples include `userId`, `photoId`, `recipientId`, `createdAt`, `updatedAt`, `avatarUrl`, and `isBookmarked`.
+
+Database column names remain `snake_case` internally and must not leak into API payloads unless the endpoint is explicitly returning raw database metadata. Convert external or database-shaped fields at the route/service boundary.
 
 ## Auth
 
@@ -197,7 +203,7 @@ Interactive docs: `/swagger` (development open, production admin-only)
 ### `GET /api/rolls/is-saved`
 
 - Auth: session required
-- Query: `photo_id`
+- Query: `photoId`
 - Success: `200` with saved roll ids
 - Errors: `400`, `401`, `500`
 
@@ -238,17 +244,17 @@ Interactive docs: `/swagger` (development open, production admin-only)
 - Success: `200` paginated photos
 - Errors: `400`, `404`, `500`
 
-### `POST /api/rolls/[rollId]/photos/[photo_id]`
+### `POST /api/rolls/[rollId]/photos/[photoId]`
 
 - Auth: session owner
-- Path: `rollId`, `photo_id`
+- Path: `rollId`, `photoId`
 - Success: `200`
 - Errors: `400`, `401`, `403`, `404`, `500`
 
-### `DELETE /api/rolls/[rollId]/photos/[photo_id]`
+### `DELETE /api/rolls/[rollId]/photos/[photoId]`
 
 - Auth: session owner
-- Path: `rollId`, `photo_id`
+- Path: `rollId`, `photoId`
 - Success: `200`
 - Errors: `400`, `401`, `403`, `404`, `500`
 
@@ -278,7 +284,7 @@ Interactive docs: `/swagger` (development open, production admin-only)
 ### `GET /api/notifications`
 
 - Auth: none (recipient validated by query contract)
-- Query: `recipient_id`, `page`, `limit`
+- Query: `recipientId`, `page`, `limit`
 - Success: `200`
 - Errors: `400`, `500`
 

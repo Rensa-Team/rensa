@@ -1,6 +1,6 @@
 # Product Requirements Document (PRD)
 
-Updated: 2026-04-14
+Updated: 2026-05-17
 
 ## 1. Product Summary
 Rensa is a photo-sharing community focused on reproducible photography "recipes".  
@@ -139,6 +139,7 @@ Contract documentation:
 ### NFR-004 Maintainability and Consistency
 - Core domains shall follow layered boundaries (`route -> service -> repository`).
 - Canonical naming and contracts (for example `bookmarks`) shall be consistent across routes, DTOs, and docs.
+- Application and API naming shall use `camelCase`; physical database column names shall remain `snake_case`.
 - Product and API docs under `/docs` shall be updated when architecture or contract behavior changes.
 
 ### NFR-005 Testability and Operability
