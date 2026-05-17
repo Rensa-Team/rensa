@@ -70,20 +70,18 @@ export class CommentRepository implements CommentRepositoryInterface {
 			.from(comments)
 			.where(eq(comments.photoId, params.photoId));
 
-		const mapped = rows.map((row) => {
-			return {
-				commentId: row.commentId,
-				photoId: row.photoId ?? "",
-				user: {
-					userId: row.userId ?? "",
-					username: row.username ?? "",
-					avatarUrl: row.avatarUrl ?? undefined,
-				},
-				text: row.text,
-				createdAt: toIso(row.createdAt),
-				updatedAt: toIso(row.updatedAt),
-			};
-		});
+		const mapped = rows.map((row) => ({
+			commentId: row.commentId,
+			photoId: row.photoId ?? "",
+			user: {
+				userId: row.userId ?? "",
+				username: row.username ?? "",
+				avatarUrl: row.avatarUrl ?? undefined,
+			},
+			text: row.text,
+			createdAt: toIso(row.createdAt),
+			updatedAt: toIso(row.updatedAt),
+		}));
 
 		return {
 			comments: mapped,

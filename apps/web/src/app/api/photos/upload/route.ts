@@ -93,7 +93,8 @@ export async function POST(req: Request) {
 			return NextResponse.json(
 				{
 					success: false,
-					error: "Authenticated user was not found. Please log out and log in again.",
+					error:
+						"Authenticated user was not found. Please log out and log in again.",
 				},
 				{ status: 401 }
 			);

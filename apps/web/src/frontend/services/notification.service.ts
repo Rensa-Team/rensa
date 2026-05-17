@@ -38,15 +38,11 @@ const sendPhotoNotification = async (
 	return res.data;
 };
 
-export const sendPhotoSavedNotification = (
-	actorId: string,
-	photoId: string
-) => sendPhotoNotification(actorId, photoId, "photo-saved");
+export const sendPhotoSavedNotification = (actorId: string, photoId: string) =>
+	sendPhotoNotification(actorId, photoId, "photo-saved");
 
-export const sendBookmarkedNotification = (
-	actorId: string,
-	photoId: string
-) => sendPhotoNotification(actorId, photoId, "photo-bookmarked");
+export const sendBookmarkedNotification = (actorId: string, photoId: string) =>
+	sendPhotoNotification(actorId, photoId, "photo-bookmarked");
 
 export const sendCommentedNotification = (actorId: string, photoId: string) =>
 	sendPhotoNotification(actorId, photoId, "photo-commented");

@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { ZodError } from "zod";
 import {
-  BackendError,
-  UnauthorizedError,
+	BackendError,
+	UnauthorizedError,
 } from "@/backend/common/backend.error";
 import { listRollsQueryDto, rollCreateDto } from "@/backend/dtos/roll.dto";
 import { rollService } from "@/backend/services/rolls/service";
@@ -13,89 +13,89 @@ import { authOptions } from "@/lib/auth";
   GET /api/rolls?userId=...&sort=latest|oldest
 */
 export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const query = listRollsQueryDto.parse({
-      userId:
-        searchParams.get("userId") ?? searchParams.get("userId") ?? undefined,
-      sort: searchParams.get("sort") ?? undefined,
-    });
-    const result = await rollService.listByUserId(query.userId, query.sort);
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Fetched rolls successfully",
-        data: result,
-      },
-      { status: 200 },
-    );
-  } catch (error) {
-    return mapRouteError(error, "Failed to fetch rolls");
-  }
+	try {
+		const { searchParams } = new URL(req.url);
+		const query = listRollsQueryDto.parse({
+			userId:
+				searchParams.get("userId") ?? searchParams.get("userId") ?? undefined,
+			sort: searchParams.get("sort") ?? undefined,
+		});
+		const result = await rollService.listByUserId(query.userId, query.sort);
+		return NextResponse.json(
+			{
+				success: true,
+				message: "Fetched rolls successfully",
+				data: result,
+			},
+			{ status: 200 }
+		);
+	} catch (error) {
+		return mapRouteError(error, "Failed to fetch rolls");
+	}
 }
 
 /*
   POST /api/rolls
 */
 export async function POST(req: Request) {
-  try {
-    const session = await getServerSession(authOptions);
-    const actorId = session?.user?.id;
-    if (!actorId) {
-      throw new UnauthorizedError();
-    }
+	try {
+		const session = await getServerSession(authOptions);
+		const actorId = session?.user?.id;
+		if (!actorId) {
+			throw new UnauthorizedError();
+		}
 
-    const rawBody = (await req.json()) as {
-      description?: string;
-      imageUrl?: string;
-      name?: string;
-      userId?: string;
-    };
-    const body = rollCreateDto.parse({
-      name: rawBody.name,
-      description: rawBody.description,
-      imageUrl: rawBody.imageUrl,
-      userId: rawBody.userId,
-    });
-    const createdRoll = await rollService.create(body, actorId);
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Roll created successfully",
-        data: createdRoll,
-      },
-      { status: 201 },
-    );
-  } catch (error) {
-    return mapRouteError(error, "Failed to create roll");
-  }
+		const rawBody = (await req.json()) as {
+			description?: string;
+			imageUrl?: string;
+			name?: string;
+			userId?: string;
+		};
+		const body = rollCreateDto.parse({
+			name: rawBody.name,
+			description: rawBody.description,
+			imageUrl: rawBody.imageUrl,
+			userId: rawBody.userId,
+		});
+		const createdRoll = await rollService.create(body, actorId);
+		return NextResponse.json(
+			{
+				success: true,
+				message: "Roll created successfully",
+				data: createdRoll,
+			},
+			{ status: 201 }
+		);
+	} catch (error) {
+		return mapRouteError(error, "Failed to create roll");
+	}
 }
 
 function mapRouteError(error: unknown, fallbackMessage: string): NextResponse {
-  if (error instanceof ZodError) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Validation failed",
-        details: error.flatten(),
-      },
-      { status: 400 },
-    );
-  }
+	if (error instanceof ZodError) {
+		return NextResponse.json(
+			{
+				success: false,
+				message: "Validation failed",
+				details: error.flatten(),
+			},
+			{ status: 400 }
+		);
+	}
 
-  if (error instanceof BackendError) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: error.message,
-        code: error.code,
-      },
-      { status: error.statusCode },
-    );
-  }
+	if (error instanceof BackendError) {
+		return NextResponse.json(
+			{
+				success: false,
+				message: error.message,
+				code: error.code,
+			},
+			{ status: error.statusCode }
+		);
+	}
 
-  return NextResponse.json(
-    { success: false, message: fallbackMessage },
-    { status: 500 },
-  );
+	return NextResponse.json(
+		{ success: false, message: fallbackMessage },
+		{ status: 500 }
+	);
 }

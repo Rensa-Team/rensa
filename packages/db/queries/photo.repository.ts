@@ -292,9 +292,7 @@ export class PhotoRepository implements PhotoRepositoryInterface {
 			.from(photoMetadata)
 			.where(eq(photoMetadata.photoMetadataId, id))
 			.limit(1);
-		const usersById = await this.getUsersByIds(
-			row.userId ? [row.userId] : []
-		);
+		const usersById = await this.getUsersByIds(row.userId ? [row.userId] : []);
 		return this.serializePhoto(
 			row,
 			bookmarkCountByPhotoId.get(id) ?? 0,
