@@ -1,4 +1,4 @@
-import type { CommentType } from "@/frontend/sections/CommentSection";
+import type { CommentType } from "@/frontend/types/comment";
 import { api } from "@/lib/axios-client";
 import {
 	sendBookmarkedNotification,

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { Photo } from "@/frontend/services/photo.service";
+import type { Photo } from "@/frontend/types/photo";
 
 interface PicsumPhoto {
 	author: string;

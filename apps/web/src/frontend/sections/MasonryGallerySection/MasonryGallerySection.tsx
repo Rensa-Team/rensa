@@ -6,12 +6,11 @@ import "@/frontend/components/MasonryGallery.css";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import {
-	type FetchPhotosResponse,
 	fetchBookmarkedPhotosFromDB,
 	fetchPhotosFromDB,
 	fetchPhotosFromRoll,
-	type Photo,
 } from "@/frontend/services/photo.service";
+import type { FetchPhotosResponse, Photo } from "@/frontend/types/photo";
 import MasonryGalleryGrid from "./MasonryGalleryGrid";
 
 interface MasonryGallerySectionProps {

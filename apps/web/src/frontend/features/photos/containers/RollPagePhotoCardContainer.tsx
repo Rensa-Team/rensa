@@ -1,8 +1,8 @@
 import type React from "react";
 import { useState } from "react";
 import { useToast } from "@/frontend/providers/ToastProvider";
-import type { Photo } from "@/frontend/services/photo.service";
 import { removePhotoFromRoll } from "@/frontend/services/roll.service";
+import type { Photo } from "@/frontend/types/photo";
 import RollPagePhotoCardView from "../components/RollPagePhotoCardView";
 
 export interface RollPagePhotoCardContainerProps {

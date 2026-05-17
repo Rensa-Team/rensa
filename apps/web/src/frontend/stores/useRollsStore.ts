@@ -1,26 +1,7 @@
 import { create } from "zustand";
+import type { ApiRoll, Roll, RollsState } from "@/frontend/types/roll";
 import { api } from "@/lib/axios-client";
 import { useAuthStore } from "./useAuthStore";
-
-interface Roll {
-	imageUrl: string;
-	name: string;
-	roll_id: string;
-}
-
-interface ApiRoll {
-	imageUrl?: string;
-	name: string;
-	roll_id?: string;
-}
-
-interface RollsState {
-	clearRolls: () => void;
-	createRoll: (newRoll: { name: string; imageUrl?: string }) => Promise<void>;
-	fetchRolls: () => Promise<void>;
-	isLoading: boolean;
-	rolls: Roll[];
-}
 
 const normalizeRoll = (roll: ApiRoll): Roll | null => {
 	const rollId = roll.roll_id;
@@ -31,7 +12,7 @@ const normalizeRoll = (roll: ApiRoll): Roll | null => {
 	return {
 		roll_id: rollId,
 		name: roll.name,
-		imageUrl: roll.imageUrl ?? "/images/default-roll.jpg",
+		image_url: roll.image_url ?? roll.imageUrl ?? "/images/default-roll.jpg",
 	};
 };
 
@@ -64,7 +45,11 @@ export const useRollsStore = create<RollsState>((set, get) => ({
 			set({ isLoading: false });
 		}
 	},
-	createRoll: async (newRoll: { name: string; imageUrl?: string }) => {
+	createRoll: async (newRoll: {
+		name: string;
+		image_url?: string;
+		imageUrl?: string;
+	}) => {
 		const user = useAuthStore.getState().user;
 		if (!user) {
 			throw new Error("User not authenticated");

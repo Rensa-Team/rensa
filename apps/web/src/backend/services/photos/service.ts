@@ -10,14 +10,7 @@ import {
 	NotFoundError,
 	UnauthorizedError,
 } from "@/backend/common/backend.error";
-
-interface PaginatedPhotosResult {
-	currentPage: number;
-	hasMore: boolean;
-	photos: unknown[];
-	total: number;
-	totalPages: number;
-}
+import type { PaginatedPhotoListResult } from "@/backend/types/service.types";
 
 export class PhotoService {
 	readonly photoRepository: PhotoRepositoryInterface;
@@ -31,7 +24,7 @@ export class PhotoService {
 		this.userRepository = userRepository;
 	}
 
-	async list(query: ListPhotosQueryDto): Promise<PaginatedPhotosResult> {
+	async list(query: ListPhotosQueryDto): Promise<PaginatedPhotoListResult> {
 		const { photos, total } = await this.photoRepository.list(query);
 		const totalPages = Math.ceil(total / query.limit);
 		return {
@@ -72,7 +65,7 @@ export class PhotoService {
 		userId: string,
 		page: number,
 		limit: number
-	): Promise<PaginatedPhotosResult> {
+	): Promise<PaginatedPhotoListResult> {
 		const { photos, total } = await this.photoRepository.listBookmarkedByUser(
 			userId,
 			page,

@@ -5,7 +5,7 @@ import type React from "react";
 import RollDropdown from "@/frontend/components/dropdowns/rolls/RollDropdown";
 import { ImageWithSkeleton } from "@/frontend/components/ImageWithSkeleton";
 import Text from "@/frontend/components/Text";
-import type { Photo } from "@/frontend/services/photo.service";
+import type { Photo } from "@/frontend/types/photo";
 import { cn } from "@/utils/cn";
 
 interface PhotoCardViewProps {

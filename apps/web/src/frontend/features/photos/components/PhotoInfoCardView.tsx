@@ -90,7 +90,7 @@ const PhotoInfoCardView: React.FC<PhotoInfoCardViewProps> = ({
 		<div className="mb-9">
 			<div className="mb-7">
 				<Text className="text-white-700" size="s">
-					{formatDate(metadata?.uploadedAt || "")}
+					{formatDate(metadata?.uploaded_at)}
 				</Text>
 				<Heading size="m">{title}</Heading>
 			</div>

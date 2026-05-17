@@ -1,5 +1,5 @@
 import type { InViewHookResponse } from "react-intersection-observer";
-import type { Photo } from "@/frontend/services/photo.service";
+import type { Photo } from "@/frontend/types/photo";
 import ExploreGalleryGrid from "./ExploreGalleryGrid";
 
 interface ExploreGalleryViewProps {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import type React from "react";
 import SmallIconButton from "@/frontend/components/buttons/SmallIconButton";
 import { ImageWithSkeleton } from "@/frontend/components/ImageWithSkeleton";
-import type { Photo } from "@/frontend/services/photo.service";
+import type { Photo } from "@/frontend/types/photo";
 import { cn } from "@/utils/cn";
 
 interface RollPagePhotoCardViewProps {

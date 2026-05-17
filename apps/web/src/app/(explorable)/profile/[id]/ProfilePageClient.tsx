@@ -7,7 +7,7 @@ import AccentButton from "@/frontend/components/buttons/AccentButton";
 import ShareButton from "@/frontend/components/buttons/ShareButton";
 import ProfileRollFilterDropdown from "@/frontend/components/dropdowns/profile/ProfileRollFilterDropdown";
 import Heading from "@/frontend/components/Heading";
-import RollList, { type Roll } from "@/frontend/components/lists/RollList";
+import RollList from "@/frontend/components/lists/RollList";
 import { CreateRollProvider } from "@/frontend/providers/CreateRollProvider";
 import { EditRollProvider } from "@/frontend/providers/EditRollProvider";
 import {
@@ -15,6 +15,7 @@ import {
 	type SortOption,
 } from "@/frontend/services/roll.service";
 import { useAuthStore } from "@/frontend/stores/useAuthStore";
+import type { Roll } from "@/frontend/types/roll";
 
 interface ProfilePageClientProps {
 	profileData: {

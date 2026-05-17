@@ -1,8 +1,8 @@
 import type React from "react";
 import { useState } from "react";
-import type { CommentType } from "@/frontend/sections/CommentSection";
 import { commentPhoto } from "@/frontend/services/photo-post.service";
 import { useAuthStore } from "@/frontend/stores/useAuthStore";
+import type { CommentType } from "@/frontend/types/comment";
 import CommentInputFieldView from "../components/CommentInputFieldView";
 
 export interface CommentInputFieldContainerProps {
@@ -26,12 +26,12 @@ const CommentInputFieldContainer: React.FC<CommentInputFieldContainerProps> = ({
 		const newComment: CommentType = {
 			comment_id: tempId,
 			text: comment,
-			userId: {
+			user_id: {
 				id: user?.id || "unknown",
 				username: user?.name || "Anonymous",
-				avatarUrl: user?.image || "/profile.jpg",
+				avatar_url: user?.image || "/profile.jpg",
 			},
-			createdAt: new Date().toISOString(),
+			created_at: new Date().toISOString(),
 		};
 
 		onAddComment(newComment);

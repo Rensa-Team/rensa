@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import "@/frontend/components/MasonryGallery.css";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import type { Photo } from "@/frontend/services/photo.service";
-import {
-	type ExplorePhotoSource,
-	type FetchPhotosResponse,
-	fetchExplorePhotos,
-} from "@/frontend/services/photo.service";
+import { fetchExplorePhotos } from "@/frontend/services/photo.service";
+import type {
+	ExplorePhotoSource,
+	FetchPhotosResponse,
+	Photo,
+} from "@/frontend/types/photo";
 import ExploreGalleryView from "../components/ExploreGalleryView";
 
 interface ExploreGalleryContainerProps {

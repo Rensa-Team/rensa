@@ -12,14 +12,7 @@ import {
 	NotFoundError,
 	UnauthorizedError,
 } from "@/backend/common/backend.error";
-
-interface PaginatedRollPhotosResult {
-	currentPage: number;
-	hasMore: boolean;
-	photos: unknown[];
-	total: number;
-	totalPages: number;
-}
+import type { PaginatedPhotoListResult } from "@/backend/types/service.types";
 
 export class RollService {
 	readonly photoRepository: PhotoRepositoryInterface;
@@ -175,7 +168,7 @@ export class RollService {
 	async listPhotos(
 		rollId: string,
 		query: ListRollPhotosQueryDto
-	): Promise<PaginatedRollPhotosResult> {
+	): Promise<PaginatedPhotoListResult> {
 		const roll = await this.rollRepository.getById(rollId);
 		if (!roll) {
 			throw new NotFoundError("Roll not found");

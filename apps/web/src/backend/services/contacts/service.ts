@@ -9,24 +9,14 @@ import {
 	TooManyRequestsError,
 	UnauthorizedError,
 } from "@/backend/common/backend.error";
+import type {
+	ContactListResult,
+	ContactSubmitResult,
+} from "@/backend/types/service.types";
 import ContactAdminEmail from "@/frontend/components/emailTemplates/ContactAdminEmail";
 import ContactConfirmationEmail from "@/frontend/components/emailTemplates/ContactConfirmationEmail";
 import getResend from "@/lib/resend";
 import { sanitizeInput } from "@/lib/validation";
-
-export interface ContactSubmitResult {
-	id: string;
-}
-
-export interface ContactListResult {
-	contacts: unknown[];
-	pagination: {
-		page: number;
-		limit: number;
-		total: number;
-		pages: number;
-	};
-}
 
 export class ContactService {
 	readonly contactRepository: ContactRepositoryInterface;

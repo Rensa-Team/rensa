@@ -9,11 +9,8 @@ import {
 	useQueryClient,
 } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import {
-	type FetchPhotosResponse,
-	fetchPhotosFromRoll, // 🆕 New service
-	type Photo,
-} from "@/frontend/services/photo.service";
+import { fetchPhotosFromRoll } from "@/frontend/services/photo.service";
+import type { FetchPhotosResponse, Photo } from "@/frontend/types/photo";
 import RollPageMasonryGalleryGrid from "./RollPageMasonryGalleryGrid";
 
 interface RollPageMasonryGallerySectionProps {

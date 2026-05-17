@@ -1,7 +1,7 @@
 import RollPagePhotoCardContainer, {
 	type RollPagePhotoCardContainerProps,
 } from "@/frontend/features/photos/containers/RollPagePhotoCardContainer";
-import type { Photo } from "@/frontend/services/photo.service";
+import type { Photo } from "@/frontend/types/photo";
 
 export interface RollPagePhotoCardProps
 	extends RollPagePhotoCardContainerProps {

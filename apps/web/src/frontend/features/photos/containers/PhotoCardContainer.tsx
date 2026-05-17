@@ -1,7 +1,7 @@
 import type React from "react";
 import usePhotoRoll from "@/frontend/features/photos/hooks/use-photo-roll";
-import type { Photo } from "@/frontend/services/photo.service";
 import { useAuthStore } from "@/frontend/stores/useAuthStore";
+import type { Photo } from "@/frontend/types/photo";
 import PhotoCardView from "../components/PhotoCardView";
 
 export interface PhotoCardContainerProps {

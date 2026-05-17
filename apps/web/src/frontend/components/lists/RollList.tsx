@@ -1,16 +1,6 @@
 import RollCard from "@/frontend/components/cards/RollCard";
+import type { Roll } from "@/frontend/types/roll";
 import CreateNewRollCard from "../cards/CreateNewRollCard";
-
-export interface Roll {
-	createdAt: string;
-	imageUrl?: string;
-	name: string;
-	photos?: string[];
-	previewPhotos?: string[];
-	roll_id: string;
-	user_id?: string;
-	userId?: string;
-}
 
 interface RollListProps {
 	isOwner: boolean;
@@ -24,10 +14,13 @@ export default function RollList({ rolls, isOwner }: RollListProps) {
 			{rolls?.length > 0 &&
 				rolls.map((roll) => {
 					const imageUrls =
-						roll.previewPhotos ?? (roll.imageUrl ? [roll.imageUrl] : []);
+						roll.previewPhotos ??
+						(roll.image_url || roll.imageUrl
+							? [roll.image_url ?? roll.imageUrl ?? ""]
+							: []);
 					return (
 						<RollCard
-							createdAt={roll.createdAt}
+							createdAt={roll.created_at ?? roll.createdAt}
 							id={roll.roll_id}
 							imageUrls={imageUrls}
 							key={roll.roll_id}

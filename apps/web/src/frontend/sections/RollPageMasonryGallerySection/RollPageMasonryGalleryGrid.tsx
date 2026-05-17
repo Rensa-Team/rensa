@@ -1,7 +1,7 @@
 import { AnimatePresence } from "motion/react";
 import Masonry from "react-masonry-css";
 import RollPagePhotoCard from "@/frontend/components/RollPagePhotoCard";
-import type { Photo } from "@/frontend/services/photo.service";
+import type { Photo } from "@/frontend/types/photo";
 import { cn } from "@/utils/cn";
 
 interface RollPageMasonryGalleryGridProps {

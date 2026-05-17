@@ -8,12 +8,7 @@ import {
 	UnauthorizedError,
 	ValidationError,
 } from "@/backend/common/backend.error";
-
-export interface ListCommentsResult {
-	comments: unknown[];
-	hasMore: boolean;
-	total: number;
-}
+import type { CommentListResult } from "@/backend/types/service.types";
 
 export class CommentService {
 	readonly commentRepository: CommentRepositoryInterface;
@@ -53,7 +48,7 @@ export class CommentService {
 		photo_id: string,
 		offset: number,
 		limit: number
-	): Promise<ListCommentsResult> {
+	): Promise<CommentListResult> {
 		const { comments, total } = await this.commentRepository.listByPhotoId({
 			photo_id,
 			offset,
