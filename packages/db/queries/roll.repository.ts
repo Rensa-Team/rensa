@@ -113,7 +113,7 @@ export class RollRepository implements RollRepositoryInterface {
   async listContainingPhoto(
     user_id: string,
     photo_id: string,
-  ): Promise<Array<SelectedRoll>> {
+  ): Promise<Array<{ name: string; roll_id: string }>> {
     const userRolls = await db
       .select({
         name: rolls.name,

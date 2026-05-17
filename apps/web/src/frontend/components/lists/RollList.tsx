@@ -15,17 +15,17 @@ export default function RollList({ rolls, isOwner }: RollListProps) {
 				rolls.map((roll) => {
 					const imageUrls =
 						roll.previewPhotos ??
-						(roll.image_url || roll.imageUrl
-							? [roll.image_url ?? roll.imageUrl ?? ""]
+						(roll.imageUrl || roll.imageUrl
+							? [roll.imageUrl ?? roll.imageUrl ?? ""]
 							: []);
 					return (
 						<RollCard
-							created_at={roll.created_at}
-							id={roll.roll_id}
+							createdAt={roll.createdAt}
+							id={roll.rollId}
 							imageUrls={imageUrls}
-							key={roll.roll_id}
+							key={roll.rollId}
 							name={roll.name}
-							userId={roll.user_id}
+							userId={roll.userId}
 						/>
 					);
 				})}

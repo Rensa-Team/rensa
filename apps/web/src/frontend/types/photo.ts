@@ -19,7 +19,7 @@ export interface Photo {
   camera?: string;
   category?: string;
   color?: string;
-  created_at?: string;
+  createdAt?: string;
   description: string;
   metadata?: PhotoMetadata;
   photoId: string;
