@@ -52,4 +52,4 @@ jobs:
           context: .
           file: apps/notifications/Dockerfile
           push: true
-          tags: labmgm/rensa-notification:${{ inputs.tag }}
+          tags: ${{ env.DOCKERHUB_USERNAME }}/rensa-notification:${{ inputs.tag }}
