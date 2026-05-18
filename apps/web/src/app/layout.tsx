@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Forum } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import SchemaMarkup from "@/frontend/components/SchemaMarkup";
 import Toast from "@/frontend/components/toast/Toast";
@@ -90,6 +91,36 @@ export default function RootLayout({
 		<html lang="en">
 			<head>
 				<SchemaMarkup />
+				<Script id="maze-universal-snippet" strategy="afterInteractive">
+					{`
+(function (m, a, z, e) {
+  var s, t, u, v;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+
+  u = document.currentScript || (function () {
+    var w = document.getElementsByTagName('script');
+    return w[w.length - 1];
+  })();
+  v = u && u.nonce;
+
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  if (v) s.setAttribute('nonce', v);
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'a2dc0fcf-ee1d-4ede-86e3-df33616b4404');
+`}
+				</Script>
 			</head>
 			<body className={cn("antialiased", forum.variable, figtree.variable)}>
 				<ToastProvider>
