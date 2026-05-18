@@ -55,6 +55,11 @@ elysiaApi.interceptors.request.use(
 					config.headers.Authorization = `Bearer ${serviceToken}`;
 				}
 			}
+			console.info("[notifications-api] auth", {
+				hasAuthorization: Boolean(config.headers.Authorization),
+				hasSessionUser: Boolean(session?.user?.id),
+				usesSessionAccessToken: Boolean(session?.accessToken),
+			});
 		} catch (error) {
 			return Promise.reject(error);
 		}
