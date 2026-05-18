@@ -16,6 +16,11 @@ interface NotificationsApiResponse {
 	};
 }
 
+interface NotificationApiResponse {
+	message?: string;
+	success?: boolean;
+}
+
 interface NotificationApiClient {
 	delete(url: string): Promise<unknown>;
 	get<T>(url: string, config?: { params?: unknown }): Promise<{ data: T }>;
@@ -46,7 +51,19 @@ export class NotificationRepository implements NotificationRepositoryInterface {
 
 	async create(payload: CreateNotificationDto): Promise<unknown> {
 		try {
-			const response = await this.api.post("/notifications", payload);
+			const response = await this.api.post<NotificationApiResponse>(
+				"/notifications",
+				{
+					photo_id: payload.photoId,
+					recipient_id: payload.recipientId,
+					type: payload.type,
+				}
+			);
+			if (response.data.success === false) {
+				throw new Error(
+					response.data.message ?? "Failed to create notification"
+				);
+			}
 			return response.data;
 		} catch (error) {
 			throw this.mapAxiosError(error, "Failed to create notification");

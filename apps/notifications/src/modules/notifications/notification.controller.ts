@@ -27,8 +27,9 @@ export const notificationController = new Elysia({ prefix: "/notifications" })
 	})
 	.post(
 		"",
-		async ({ user, body }) => {
+		async ({ user, body, set }) => {
 			if (!user?.id) {
+				set.status = 401;
 				return { success: false, message: "Unauthorized" };
 			}
 
@@ -49,8 +50,9 @@ export const notificationController = new Elysia({ prefix: "/notifications" })
 	)
 	.get(
 		"",
-		async ({ user, query }) => {
+		async ({ user, query, set }) => {
 			if (!user?.id) {
+				set.status = 401;
 				return { success: false, message: "Unauthorized" };
 			}
 

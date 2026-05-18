@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwt from "jsonwebtoken";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth";
 
@@ -20,6 +21,16 @@ const elysiaApi = axios.create({
 const maskUrl = (url?: string): string =>
 	url ? url.replace(/\/\/([^:@/]+):([^@/]+)@/, "//$1:***@") : "not configured";
 
+const createNotificationsToken = (userId: string): string | null => {
+	const secret = process.env.NEXTAUTH_SECRET;
+	if (!secret) {
+		console.error("[notifications-api] missing NEXTAUTH_SECRET");
+		return null;
+	}
+
+	return jwt.sign({ id: userId }, secret, { expiresIn: "5m" });
+};
+
 const fastApi = axios.create({
 	baseURL: process.env.FAST_API_BASE_URL,
 	withCredentials: true,
@@ -38,6 +49,11 @@ elysiaApi.interceptors.request.use(
 			const session = await getServerSession(authOptions);
 			if (session?.accessToken) {
 				config.headers.Authorization = `Bearer ${session.accessToken}`;
+			} else if (session?.user?.id) {
+				const serviceToken = createNotificationsToken(session.user.id);
+				if (serviceToken) {
+					config.headers.Authorization = `Bearer ${serviceToken}`;
+				}
 			}
 		} catch (error) {
 			return Promise.reject(error);
