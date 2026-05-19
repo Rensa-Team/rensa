@@ -11,6 +11,7 @@ interface PhotoState {
 }
 interface EditPhotoContextType {
 	closeEditor: () => void;
+	handleShare: (photoId: string) => void;
 	isOpen: boolean;
 	openEditor: (photo: PhotoState) => void;
 }
@@ -46,6 +47,17 @@ export const EditPhotoProvider: React.FC<EditPhotoProviderProps> = ({
 	const closeEditor = () => {
 		setIsOpen(false);
 	};
+	const handleShare = async () => {
+		const shareUrl = `${window.location.origin}/photo/${photoState.photoId}`;
+		try {
+			await navigator.clipboard.writeText(shareUrl);
+			showToast("Photo link copied to clipboard!", "success");
+		} catch {
+			showToast("Failed to copy photo link", "error");
+		} finally {
+			closeEditor();
+		}
+	};
 	const removePhoto = async (photoId: string) => {
 		try {
 			await api.delete(`/photos/${photoId}`);
@@ -58,7 +70,9 @@ export const EditPhotoProvider: React.FC<EditPhotoProviderProps> = ({
 		}
 	};
 	return (
-		<EditPhotoContext.Provider value={{ isOpen, openEditor, closeEditor }}>
+		<EditPhotoContext.Provider
+			value={{ isOpen, openEditor, closeEditor, handleShare }}
+		>
 			{children}
 			{isOpen && (
 				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 text-black">

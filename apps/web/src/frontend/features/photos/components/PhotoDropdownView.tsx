@@ -22,10 +22,8 @@ const PhotoDropdownView: React.FC<PhotoDropdownViewProps> = ({
 			Tag={DotsThreeVerticalIcon}
 			weight="bold"
 		>
-			<DropdownItem className="px-10">
-				<button data-close-dropdown="true" onClick={onShare} type="button">
-					Share
-				</button>
+			<DropdownItem className="px-10" onClick={onShare}>
+				Share
 			</DropdownItem>
 			{isOwner && (
 				<DropdownItem className="px-10" onClick={onDelete}>
