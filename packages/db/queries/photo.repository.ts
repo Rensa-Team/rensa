@@ -268,7 +268,9 @@ export class PhotoRepository implements PhotoRepositoryInterface {
 				.from(photos)
 				.where(whereClause)
 				.orderBy(
-					query.sort === "oldest" ? asc(photos.createdAt) : desc(photos.createdAt)
+					query.sort === "oldest"
+						? asc(photos.createdAt)
+						: desc(photos.createdAt)
 				)
 				.limit(query.limit)
 				.offset(from);
