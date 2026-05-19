@@ -34,8 +34,8 @@ interface ProfilePageClientProps {
 }
 
 const profileTabs = [
-	{ id: "created", label: "Created" },
 	{ id: "rolls", label: "Rolls" },
+	{ id: "created", label: "Created" },
 ];
 
 export default function ProfilePageClient({
@@ -44,7 +44,7 @@ export default function ProfilePageClient({
 	const { user } = useAuthStore();
 	const queryClient = useQueryClient();
 	const [filter, setFilter] = useState<SortOption>("latest");
-	const [activeTabId, setActiveTabId] = useState("created");
+	const [activeTabId, setActiveTabId] = useState("rolls");
 	const { ref, inView } = useInView({ threshold: 0.5 });
 	const isOwner = user?.id === profileData.user.id;
 
